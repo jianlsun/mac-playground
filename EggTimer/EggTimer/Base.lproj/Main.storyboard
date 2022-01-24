@@ -259,7 +259,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="eggImage" destination="DR2-Aa-lGS" id="rMR-Mh-PyL"/>
+                        <outlet property="eggImageView" destination="DR2-Aa-lGS" id="Sbd-Y6-zCI"/>
                         <outlet property="resetButton" destination="atg-il-rBD" id="PHr-xq-hFm"/>
                         <outlet property="startButton" destination="mrL-h7-4Gq" id="J9z-lj-sha"/>
                         <outlet property="stopButton" destination="x0P-re-KPg" id="0dL-Jx-mgs"/>
