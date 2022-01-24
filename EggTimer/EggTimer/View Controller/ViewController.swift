@@ -59,7 +59,14 @@ class ViewController: NSViewController {
     }
     
     private func textToDisplay(for timeRemining: TimeInterval) -> String {
-        return ""
+        if timeRemining == 0 {
+            return "Done!"
+        }
+        
+        let minuteRemining = floor(timeRemining / 60)
+        let secondsRemining = timeRemining - 60 * minuteRemining
+        let secondsDisplay = String(format:"%02d", Int(secondsRemining))
+        return "\(Int(minuteRemining)) : \(secondsDisplay)"
     }
     
     private func imageToDisplay(for timeRemining: TimeInterval) -> NSImage? {
