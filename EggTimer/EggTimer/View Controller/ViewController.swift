@@ -30,12 +30,24 @@ class ViewController: NSViewController {
     }
 
     @IBAction func startButtonClicked(_ sender: Any) {
+        if eggTimer.isPause {
+            eggTimer.remuseTimer()
+        } else {
+            eggTimer.duration = 360
+            eggTimer.startTimer()
+        }
+        configButtonsAndMenus()
     }
     
     @IBAction func stopButtonClicked(_ sender: Any) {
+        eggTimer.stopTimer()
+        configButtonsAndMenus()
     }
     
     @IBAction func resetButtonClicked(_ sender: Any) {
+        eggTimer.resetTimer()
+        updateDisplay(for: 360)
+        configButtonsAndMenus()
     }
     
     // MARK: - IBActions menu
@@ -88,6 +100,34 @@ class ViewController: NSViewController {
         
         return NSImage(named: imageName)
     }
+    
+    private func configButtonsAndMenus() {
+        var enableStart: Bool
+        var enableStop: Bool
+        var enableReset: Bool
+        
+        if eggTimer.isStop {
+            enableStart = true
+            enableStop = false
+            enableReset = false
+        } else if eggTimer.isPause {
+            enableStart = true
+            enableStop = false
+            enableReset = true
+        } else {
+            enableStart = false
+            enableStop = true
+            enableReset = false
+        }
+        
+        startButton.isEnabled = enableStart
+        stopButton.isEnabled = enableStop
+        resetButton.isEnabled = enableReset
+        
+        if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
+            appDelegate.enableMenus(start: enableStart, stop: enableStop, reset: enableReset)
+        }
+    }
 }
 
 extension ViewController : EggTimerProtocol {
@@ -97,6 +137,7 @@ extension ViewController : EggTimerProtocol {
     
     func timeHasFinished(_ timer: EggTimer) {
         updateDisplay(for: 0)
+        configButtonsAndMenus()
     }
 }
 
