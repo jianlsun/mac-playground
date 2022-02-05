@@ -70,7 +70,23 @@ class ViewController: NSViewController {
     }
     
     private func imageToDisplay(for timeRemining: TimeInterval) -> NSImage? {
-        return nil
+        let percentComplete = 100 - (timeRemining / 360 * 100)
+        
+        if eggTimer.isStop {
+            let stopImageName = timeRemining == 0 ? "100" : "stopped"
+            return NSImage(named: stopImageName)
+        }
+        
+        let imageName: String
+        switch percentComplete {
+        case 0..<25: imageName = "0"
+        case 25..<50: imageName = "25"
+        case 50..<75: imageName = "50"
+        case 75..<100: imageName = "75"
+        default: imageName = "100"
+        }
+        
+        return NSImage(named: imageName)
     }
 }
 
