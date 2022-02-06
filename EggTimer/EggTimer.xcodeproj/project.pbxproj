@@ -13,6 +13,8 @@
 		774BD4AE279C403600D9D6DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774BD4AD279C403600D9D6DB /* ViewController.swift */; };
 		774BD4B0279C403900D9D6DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 774BD4AF279C403900D9D6DB /* Assets.xcassets */; };
 		774BD4B3279C403900D9D6DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774BD4B1279C403900D9D6DB /* Main.storyboard */; };
+		77CA62E627AEC25D00F33976 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CA62E527AEC25D00F33976 /* Preferences.swift */; };
+		77CA62E827B00F9600F33976 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77CA62E727B00F9600F33976 /* ding.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		774BD4AF279C403900D9D6DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		774BD4B2279C403900D9D6DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		774BD4B4279C403900D9D6DB /* EggTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EggTimer.entitlements; sourceTree = "<group>"; };
+		77CA62E527AEC25D00F33976 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		77CA62E727B00F9600F33976 /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				7716A07B279EED3A00DBCA05 /* EggTimer.swift */,
+				77CA62E527AEC25D00F33976 /* Preferences.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 				7716A079279EEB1700DBCA05 /* View Controller */,
 				774BD4AF279C403900D9D6DB /* Assets.xcassets */,
 				774BD4B1279C403900D9D6DB /* Main.storyboard */,
+				77CA62E727B00F9600F33976 /* ding.mp3 */,
 				774BD4B4279C403900D9D6DB /* EggTimer.entitlements */,
 			);
 			path = EggTimer;
@@ -143,6 +149,7 @@
 			files = (
 				774BD4B0279C403900D9D6DB /* Assets.xcassets in Resources */,
 				774BD4B3279C403900D9D6DB /* Main.storyboard in Resources */,
+				77CA62E827B00F9600F33976 /* ding.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +162,7 @@
 			files = (
 				774BD4AE279C403600D9D6DB /* ViewController.swift in Sources */,
 				7716A07C279EED3A00DBCA05 /* EggTimer.swift in Sources */,
+				77CA62E627AEC25D00F33976 /* Preferences.swift in Sources */,
 				7716A077279D937800DBCA05 /* PrefsViewController.swift in Sources */,
 				774BD4AC279C403600D9D6DB /* AppDelegate.swift in Sources */,
 			);

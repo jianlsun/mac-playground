@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import AVFoundation
 
 class ViewController: NSViewController {
 
@@ -17,10 +18,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var resetButton: NSButton!
     
     var eggTimer = EggTimer()
+    var preference = Preferences()
+    var soundPlayer: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         eggTimer.delegate = self
+        setupPrefs()
     }
 
     override var representedObject: Any? {
@@ -33,10 +37,11 @@ class ViewController: NSViewController {
         if eggTimer.isPause {
             eggTimer.remuseTimer()
         } else {
-            eggTimer.duration = 360
+            eggTimer.duration = preference.selectedTime
             eggTimer.startTimer()
         }
         configButtonsAndMenus()
+        prepareSound()
     }
     
     @IBAction func stopButtonClicked(_ sender: Any) {
@@ -46,7 +51,8 @@ class ViewController: NSViewController {
     
     @IBAction func resetButtonClicked(_ sender: Any) {
         eggTimer.resetTimer()
-        updateDisplay(for: 360)
+        eggTimer.duration = preference.selectedTime
+        updateDisplay(for: preference.selectedTime)
         configButtonsAndMenus()
     }
     
@@ -62,6 +68,54 @@ class ViewController: NSViewController {
     
     @IBAction func resetTimerMenuItemSelected(_ sender: Any) {
         resetButtonClicked(sender)
+    }
+    
+    // MARK: - Prefs
+    func setupPrefs() {
+        updateDisplay(for: preference.selectedTime)
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "PrefsChanged"), object: nil, queue: nil) { (notification) in
+            self.checkForResetAfterPrefsChanged()
+        }
+    }
+    
+    func updateFromPrefs() {
+        self.eggTimer.duration = self.preference.selectedTime
+        resetButtonClicked(self)
+    }
+    
+    func checkForResetAfterPrefsChanged() {
+        if eggTimer.isStop || eggTimer.isPause {
+            updateFromPrefs()
+        } else {
+            let alert = NSAlert()
+            alert.messageText = "Reset timer with the new settings?"
+            alert.informativeText = "This will stop your current timer!"
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "Reset")
+            alert.addButton(withTitle: "Cancel")
+            
+            let response = alert.runModal()
+            if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+                updateFromPrefs()
+            }
+        }
+    }
+    
+    // MARK: - Sound
+    func prepareSound() {
+        guard let audioUrl = Bundle.main.url(forResource: "ding", withExtension: "mp3") else { return }
+        
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: audioUrl)
+            soundPlayer?.prepareToPlay()
+        } catch {
+            print("Sound player not available: \(error)")
+        }
+    }
+    
+    func playSound() {
+        soundPlayer?.play()
     }
     
     // MARK: - Display
@@ -82,7 +136,7 @@ class ViewController: NSViewController {
     }
     
     private func imageToDisplay(for timeRemining: TimeInterval) -> NSImage? {
-        let percentComplete = 100 - (timeRemining / 360 * 100)
+        let percentComplete = 100 - (timeRemining / preference.selectedTime * 100)
         
         if eggTimer.isStop {
             let stopImageName = timeRemining == 0 ? "100" : "stopped"
@@ -138,6 +192,7 @@ extension ViewController : EggTimerProtocol {
     func timeHasFinished(_ timer: EggTimer) {
         updateDisplay(for: 0)
         configButtonsAndMenus()
+        playSound()
     }
 }
 
